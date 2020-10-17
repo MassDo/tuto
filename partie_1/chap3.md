@@ -229,8 +229,8 @@ class HomePageTest(TestCase):
         request = HttpRequest()
         response = home_page(request)
         html = response.content.decode('utf8')
-        self.assertTrue(html.startswith('<title>To-Do</title>'))
-        self.assertIn('To-Do', html)
+        self.assertTrue(html.startswith('<html>'))
+        self.assertIn('<title>To-Do</title>', html)
         self.assertTrue(html.endswith('</html>'))
 ```
 Alors on vient de rajouter un test au titre explicite, laissez moi vous expliquer les étapes:
