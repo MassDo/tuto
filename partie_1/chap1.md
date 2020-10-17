@@ -61,7 +61,9 @@ Et le __TDD__ (Test Driven Development) dans tout ça ?!
 
 Et bien le TDD est similaire au BDD mais du point de vue du développeur.
 
-Mais nous allons expliquer cela dans le prochain chapitre, chaque chose en son temps.
+Allez comme disait Napoléon "Un bon croquis vaut mieux qu'un long discours." Je me suis risqué à essayer de résumer la situation !:  
+
+<image src="./images/croquis-bdd-tdd.png" alt="croquis-bdd-tdd" style="border-radius:10px" border="2 solid" width="800">
 
 Maintenant que nous savons créer notre environnement virtuel,  que nous avons nos dépendances et des bases pour approcher les notions de tests, revenons à la création de notre projet Django !
 
