@@ -123,6 +123,8 @@ $ git commit -am "FT with unittest"
 ```
 l'option -a c'est pour ajouter les fichier déjà suivi!
 
+La suite au chapitre [suivant](chap3.md)
+
 
 
  
