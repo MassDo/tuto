@@ -33,7 +33,7 @@ Votre arborescence doit maintenant ressembler a celle-ci:
     ├── urls.py
     └── wsgi.py
 ```
-Nous allons écrire nos tests unitaires dans le module ./lists/test.py. Les tests unitaires (TU) sont ceux élaborés du point de vue technique. Vous commencez à voir la méthode globale ?
+Nous allons écrire nos tests unitaires dans le module ./lists/test.py. Les tests unitaires (TU) sont ceux élaborés du point de vue technique. Vous commencez à voir la mécanique globale ? 
 > TF (point de vue utilisateur) => TU (point de vue réalisation technique) 
 
 Voici un exemplevolontairement faux, de test unitaire, dans notre module /lists/test.py :
@@ -78,8 +78,9 @@ $ git commit -m "Add new app lists, with a failing UT"
 
 ## Django un framework M.V.T
 
-Allez, la encore un petit croquis, pour expliquer l'organisation en Modèles Vues Templates de Django:
-<image src="./images/django-simplifie.png" alt="django-simplifé" style="border-radius:10px" border="2 solid" width="800" >
+Allez, la encore un petit croquis, pour expliquer l'organisation en Modèles Vues Templates de Django:  
+
+<image src="./images/django-simplifie.png" title="Django simplifié" alt="django-simplifé" style="border-radius:10px" border="2 solid" width="800" >
 
 > 1 - Une requête HTTP est envoyée à destination d'une url  
 > 2 - Django utilise le module urls pour diriger la requête vers la vue associée.  
@@ -118,8 +119,8 @@ from django.shortcuts import render
 
 home_page = None
 ```
-Je vous entends d'ici dire "Mais c'est une blague !!!" :)  
-Nan c'est pour décomposer et comprendre la démarche !  
+Je vous entends d'ici dire "Mais c'est une blague !!!", On va pas autant décomposer ! 🤯  
+Ahah ! Pas d'inquiétude, on ira plus vite après, mais pour l'instant, on cherche à bien s'imprénier de la méthode ! 🤓  
 On lance les tests encore:
 ```bash
 $ ./manage.py test lists/
@@ -144,7 +145,7 @@ Ran 1 test in 0.001s
 FAILED (errors=1)
 Destroying test database for alias 'default'...
 ```
-On peut lire à la fin une exception [Resolver404](https://docs.djangoproject.com/fr/2.2/ref/exceptions/#django.urls.Resolver404) qui nous indique que le chemin ne correspond à aucune vue. En nous rappelant du dessin sur django ci-dessus, nous allons nous rendre dans le modules superlists/urls.py pour résoudre ce problème.
+On peut lire à la fin une exception [Resolver404](https://docs.djangoproject.com/fr/2.2/ref/exceptions/#django.urls.Resolver404) qui nous indique que le chemin ne correspond à aucune vue. En nous rappelant du dessin sur django [ci-dessus](#django-un-framework-mvt), nous allons nous rendre dans le modules superlists/urls.py pour résoudre ce problème.
 >superlists/urls.py
 ```python
 """superlists URL Configuration
@@ -319,7 +320,7 @@ __On ajuste :__
 > lists/views.py
 ```python
 def home_page(request):
-    return HttpResponse('<html>T<title>To-Do</title></html>')
+    return HttpResponse('<html><title>To-Do</title></html>')
 ```
 __On lance les TU :__
 >lists/tests.py
@@ -334,7 +335,7 @@ Ran 2 tests in 0.002s
 OK
 Destroying test database for alias 'default'...
 ```
-Ok c'est bon les TU passent !! :)
+Ok c'est bon les TU passent !! :)  🚀  
 Bon on aurait pu écrire le code plus vite mais c'était pour vous montrer le processus d'itération et la recherche de la plus petite implémentation de code à chaque étape. TDD !  
 
 Bon maintenant que nos TU passent vérifions notre TF.  
@@ -361,9 +362,10 @@ FAILED (failures=1)
 Quoi ! Le test fonctionnel ne passe pas ?! Ah si c'était la méthode fail() que nous avions mise pour faire échouer le test si celui ci n'était pas terminé ! Ouf notre travail à payé ! #HappyFace
 Nous avons implémenté une page web avec "To-Do" dans le titre, le tout en BDD et TDD avec tests fonctionnel automatique ! Félicitation !
 
-<image src="./images/chap3-todo.png" alt="todo title" style="border-radius:10px" border="2 solid" width="800">
+<image src="./images/chap3-todo.png" alt="todo title" title="Title is 'To-Do'" style="border-radius:10px" border="2 solid" width="800">
 
-Ca mérite bien un ptit commit, allez:
+Ca mérite bien un ptit commit, allez:  
+  
 ```bash
 $ git commit -am "home_page view returns minimal HTML"
 ```
@@ -377,12 +379,12 @@ e38e5b9 FT with unittest
 de3bc47 First commit: First FT and basic Django config
 ```
 Maintenant on sait:
-> - Démarrer une application Django
-> - Utiliser la commande ./manage.py test 
-> - La différence entre TF et TU.
-> - La résolution de chemin d'url vers les vues associé grace à Urls.py
-> - Une vue et les objets request et response.
-> - Retourner un HTMLbasique.
+> - [x] Démarrer une application Django
+> - [x] Utiliser la commande ./manage.py test 
+> - [x] La différence entre TF et TU.
+> - [x] La résolution de chemin d'url vers les vues associé grace à Urls.py
+> - [x] Une vue et les objets request et response.
+> - [x] Retourner un HTMLbasique.
 
-Allez p'tite pause et on se retrouve au chapitre [suivant](chap4.md) .
+Allez p'tite pause ☕ , et on se retrouve au chapitre [suivant](chap4.md) .
 

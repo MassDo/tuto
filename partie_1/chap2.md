@@ -116,7 +116,8 @@ FAILED (failures=1)
 
 Ahhhh, le test est un echec comme prévu, mais au moins c'est plus lisible, voir beau !
 
-Faisons un commit avant de prendre un petite pause bien méritée:
+Faisons un commit avant de prendre un petite pause bien méritée:  
+ ☕
 
 ```bash
 $ git commit -am "FT with unittest"

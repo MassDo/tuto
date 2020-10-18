@@ -1,12 +1,12 @@
 # Prerequisites - Conditions préalables.
 Pour commencer ce projet il vous faut avoir:
-> - Firefox 
-> - Git
-> - Python 3
-> - Pipenv
-> - Django 2.2
-> - Selenium 3
-> - Geckodriver
+> - [ ] Firefox 
+> - [ ] Git
+> - [ ] Python 3
+> - [ ] Pipenv
+> - [ ] Django 2.2
+> - [ ] Selenium 3
+> - [ ] Geckodriver
 
 Vous pouvez commencer par vérifier que vous avez python, pip et pipenv avec:
 ```
@@ -47,9 +47,21 @@ pipenv install --dev "selenium<4"
 ```
 L'option --dev permet de signaler que cette dépendance est pour le  développement. Lors de la mise en production l'installation des dépendances par __pipenv install__ ne prendra pas en compte celles signalées par --dev. Pratique !
 
-Ouf voila ! Normalement c'est bon tout est en place pour enfin commencer ! Vous pouvez activer votre venv grace à __pipenv shell__ maintenant.
+Alors résumons nos dépendances:
 
-Dans le prochain chapitre on commence les tests... Promis !
+> - [x] Firefox 
+> - [x] Git
+> - [x] Python 3
+> - [x] Pipenv
+> - [x] Django 2.2
+> - [x] Selenium 3
+> - [x] Geckodriver  
+> 
+Ouf voila ! Normalement c'est bon tout est en place pour enfin commencer 👌 ! Vous pouvez activer votre venv grace à __pipenv shell__ maintenant.
+
+Dans le prochain chapitre on commence les tests... Promis !  
+
+Chapitre [suivant](chap1.md).
 
 
 

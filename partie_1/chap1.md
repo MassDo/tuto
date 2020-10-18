@@ -63,7 +63,7 @@ Et bien le TDD est similaire au BDD mais du point de vue du développeur.
 
 Allez comme disait Napoléon "Un bon croquis vaut mieux qu'un long discours." Je me suis risqué à essayer de résumer la situation !:  
 
-<image src="./images/croquis-bdd-tdd.png" alt="croquis-bdd-tdd" style="border-radius:10px" border="2 solid" width="800">
+<image src="./images/croquis-bdd-tdd.png" alt="croquis-bdd-tdd" title="Croquis; BDD et TDD" style="border-radius:10px" border="2 solid" width="800">
 
 Maintenant que nous savons créer notre environnement virtuel,  que nous avons nos dépendances et des bases pour approcher les notions de tests, revenons à la création de notre projet Django !
 
@@ -149,7 +149,7 @@ $ python functional_tests.py
 ``` 
 Une fenetre Firefox s'ouvre et se connecte a notre site, vous pouvez voir Django dans le tritre de l'onglet et une petite fusée ! La console n'affiche plus d'erreur, ouf, toute mes félicitations c'est notre premier test qui passe !!  
 
-<image src="images/django-launch-chap1.png" alt="Django-launched-local-server" style="border-radius:10px" border="2 solid" width="800">
+<image src="images/django-launch-chap1.png" alt="Django-launched-local-server" title="Django launched on local dev server" style="border-radius:10px" border="2 solid" width="800">
 
 
 > Si vous avez un message d'erreur, c'est que vous avez sans doute, oublié d'activer votre environnement virtuel avec ```$ pipenv shell```.
