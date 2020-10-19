@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chap3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="chapitre-3---test-dune-page-daccueil">Chapitre 3 - Test d'une page d'accueil</h1>
+<p>On a terminé notre chapitre précédent sur un TF (qui échoue), pour vérifier que notre page d'accueil contienne &quot;To-Do&quot; dans son titre.</p>
+<p>Commencons a implémenter du code avec la démarche TDD !</p>
+<p>On commence par ajouter une application &quot;lists&quot; à notre projet &quot;superlists&quot;</p>
+<pre class="hljs"><code><div>$ ./manage.py startapp lists
+</div></code></pre>
+<p>Django va créer un dossier lists (une application) contenant des fichiers dont un directement utile pour nous; test.py
+Votre arborescence doit maintenant ressembler a celle-ci:</p>
+<pre class="hljs"><code><div>.
+├── db.sqlite3
+├── functional_tests.py
+├── geckodriver.log
+├── lists
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── manage.py
+├── Pipfile
+├── Pipfile.lock
+└── superlists
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+</div></code></pre>
+<p>Nous allons écrire nos tests unitaires dans le module ./lists/test.py. Les tests unitaires (TU) sont ceux élaborés du point de vue technique. Vous commencez à voir la mécanique globale ?</p>
+<blockquote>
+<p>TF (point de vue utilisateur) =&gt; TU (point de vue réalisation technique)</p>
+</blockquote>
+<p>Voici un exemplevolontairement faux, de test unitaire, dans notre module /lists/test.py :</p>
+<blockquote>
+<p>lists/test.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.test <span class="hljs-keyword">import</span> TestCase
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExampleTest</span><span class="hljs-params">(TestCase)</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_addition_in_parallel_universe</span><span class="hljs-params">(self)</span>:</span>
+        self.assertEqual(<span class="hljs-number">1</span>+<span class="hljs-number">1</span>, <span class="hljs-number">3</span>)
+</div></code></pre>
+<p>On execute les tests unitaires de l'applications lists ainsi:</p>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+Creating <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+System check identified no issues (0 silenced).
+F
+======================================================================
+FAIL: test_addition_in_parallel_universe (lists.tests.ExampleTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File <span class="hljs-string">"/home/tuto/todo-tdd/lists/tests.py"</span>, line 6, <span class="hljs-keyword">in</span> test_addition_in_parallel_universe
+    self.assertEqual(1+1, 3)
+AssertionError: 2 != 3
+
+----------------------------------------------------------------------
+Ran 1 <span class="hljs-built_in">test</span> <span class="hljs-keyword">in</span> 0.001s
+
+FAILED (failures=1)
+Destroying <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+</div></code></pre>
+<p>Comme prévu le test qui suppose que 1 + 1 font 3 ne passe pas ...<br>
+On utilise la encore l'héritage de la classe TestCase, pour bénéficier de méthodes d'assertions.</p>
+<p>Allez ! On a maintenant un TF, un TU, notre application lists, la machinerie est en place pour commencer ! Ca semble être le bon moment pour un petit commit.</p>
+<pre class="hljs"><code><div>$ git add .
+$ git commit -m <span class="hljs-string">"Add new app lists, with a failing UT"</span>
+</div></code></pre>
+<h2 id="django-un-framework-mvt">Django un framework M.V.T</h2>
+<p>Allez, la encore un petit croquis, pour expliquer l'organisation en Modèles Vues Templates de Django:</p>
+<image src="./images/django-simplifie.png" title="Django simplifié" alt="django-simplifé" style="border-radius:10px" border="2 solid" width="800" >
+<blockquote>
+<p>1 - Une requête HTTP est envoyée à destination d'une url<br>
+2 - Django utilise le module urls pour diriger la requête vers la vue associée.<br>
+3 - La vue traite la requête et retourne une réponse HTTP.</p>
+</blockquote>
+<p>Nous pouvons donc commencer par tester si la résolution entre le chemin d'url racine '/' et la fonction vue associée à notre page d'accueil est faite.</p>
+<p>Pour trouver à quelle vue est associée un chemin d'url on utilise la fonction <a href="https://docs.djangoproject.com/fr/3.1/ref/urlresolvers/#resolve">resolve</a>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> resolve
+<span class="hljs-keyword">from</span> django.test <span class="hljs-keyword">import</span> TestCase
+<span class="hljs-keyword">from</span> lists.views <span class="hljs-keyword">import</span> home_page
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HomePageTest</span><span class="hljs-params">(TestCase)</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_root_url_resolve_to_home_page_view</span><span class="hljs-params">(self)</span>:</span>
+        my_view = resolve(<span class="hljs-string">'/'</span>)
+        self.assertEqual(my_view.func, home_page)
+</div></code></pre>
+<p>On affirme que la résolution du chemin racine '/' renvoie vers la vue 'home_page' (qui n'existe pas encore, le test doit donc échouer);</p>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+[ ... ]
+ImportError: cannot import name <span class="hljs-string">'home_page'</span>
+
+----------------------------------------------------------------------
+Ran 1 <span class="hljs-built_in">test</span> <span class="hljs-keyword">in</span> 0.000s
+
+FAILED (errors=1)
+</div></code></pre>
+<p>On ajoute:</p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render
+
+home_page = <span class="hljs-literal">None</span>
+</div></code></pre>
+<p>Je vous entends d'ici dire &quot;Mais c'est une blague !!!&quot;, On va pas autant décomposer ! 🤯<br>
+Ahah ! Pas d'inquiétude, on ira plus vite après, mais pour l'instant, on cherche à bien s'imprénier de la méthode ! 🤓<br>
+On lance les tests encore:</p>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+Creating <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+System check identified no issues (0 silenced).
+E
+======================================================================
+ERROR: test_root_url_resolve_to_home_page_view (lists.tests.HomePageTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File <span class="hljs-string">"/home/tuto/todo-tdd/lists/tests.py"</span>, line 8, <span class="hljs-keyword">in</span> test_root_url_resolve_to_home_page_view
+    my_view = resolve(<span class="hljs-string">'/'</span>)
+  File <span class="hljs-string">"/home/tuto/.local/share/virtualenvs/todo-tdd-rzjrtEdZ/lib/python3.6/site-packages/django/urls/base.py"</span>, line 24, <span class="hljs-keyword">in</span> resolve
+    <span class="hljs-built_in">return</span> get_resolver(urlconf).resolve(path)
+  File <span class="hljs-string">"/home/tuto/.local/share/virtualenvs/todo-tdd-rzjrtEdZ/lib/python3.6/site-packages/django/urls/resolvers.py"</span>, line 558, <span class="hljs-keyword">in</span> resolve
+    raise Resolver404({<span class="hljs-string">'tried'</span>: tried, <span class="hljs-string">'path'</span>: new_path})
+django.urls.exceptions.Resolver404: {<span class="hljs-string">'tried'</span>: [[&lt;URLResolver &lt;URLPattern list&gt; (admin:admin) <span class="hljs-string">'admin/'</span>&gt;]], <span class="hljs-string">'path'</span>: <span class="hljs-string">''</span>}
+
+----------------------------------------------------------------------
+Ran 1 <span class="hljs-built_in">test</span> <span class="hljs-keyword">in</span> 0.001s
+
+FAILED (errors=1)
+Destroying <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+</div></code></pre>
+<p>On peut lire à la fin une exception <a href="https://docs.djangoproject.com/fr/2.2/ref/exceptions/#django.urls.Resolver404">Resolver404</a> qui nous indique que le chemin ne correspond à aucune vue. En nous rappelant du dessin sur django <a href="#django-un-framework-mvt">ci-dessus</a>, nous allons nous rendre dans le modules superlists/urls.py pour résoudre ce problème.</p>
+<blockquote>
+<p>superlists/urls.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-string">"""superlists URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""</span>
+<span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin
+<span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path
+
+urlpatterns = [
+    path(<span class="hljs-string">'admin/'</span>, admin.site.urls),
+]
+</div></code></pre>
+<p>On peut lire des commentaires bien utiles pour faire correspondre un chemin à une vue, utilisons la méthode path() indiqué pour faire correspondre le chemin racine vers notre vue 'home_page':</p>
+<blockquote>
+<p>superlists/urls.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin
+<span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path
+<span class="hljs-keyword">from</span> lists <span class="hljs-keyword">import</span> views
+
+urlpatterns = [
+    path(<span class="hljs-string">''</span>, views.home_page, name=<span class="hljs-string">'home'</span>),
+]
+</div></code></pre>
+<p>Et on relance le TU:</p>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+[ ... ]
+TypeError: view must be a callable or a list/tuple <span class="hljs-keyword">in</span> the <span class="hljs-keyword">case</span> of include().
+</div></code></pre>
+<p>Notre vue doit être un callable, ok modifions ça:</p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render
+
+<span class="hljs-comment"># Create your views here.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">home_page</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">pass</span>
+</div></code></pre>
+<p>On relance le TU:</p>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+Creating <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+System check identified no issues (0 silenced).
+.
+----------------------------------------------------------------------
+Ran 1 <span class="hljs-built_in">test</span> <span class="hljs-keyword">in</span> 0.001s
+
+OK
+Destroying <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+</div></code></pre>
+<p>Génial ! Notre illustre premier test unitaire vient de passer ! Notre chemin d'url racine est bien relié à notre vue home_page ! Ca mérite bien un commit ...</p>
+<pre class="hljs"><code><div>$ git commit -am <span class="hljs-string">"First UT, url root path mapped to empty home_page view"</span>
+</div></code></pre>
+<p>Ok, il nous reste quoi à faire du coup ? ... Ah oui ! notre Test Fonctionnel vérifie que 'To-Do' est bien dans le titre de la page d'accueil. Du point de vue technique écrivons un test unitaire qui permet de vérifier cela (&quot;Test first !&quot;).</p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.http <span class="hljs-keyword">import</span> HttpRequest
+<span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> resolve
+<span class="hljs-keyword">from</span> django.test <span class="hljs-keyword">import</span> TestCase
+<span class="hljs-keyword">from</span> lists.views <span class="hljs-keyword">import</span> home_page
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HomePageTest</span><span class="hljs-params">(TestCase)</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_root_url_resolve_to_home_page_view</span><span class="hljs-params">(self)</span>:</span>
+        my_view = resolve(<span class="hljs-string">'/'</span>)
+        self.assertEqual(my_view.func, home_page)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_to_do_in_title_home_page</span><span class="hljs-params">(self)</span>:</span>
+        request = HttpRequest()
+        response = home_page(request)
+        html = response.content.decode(<span class="hljs-string">'utf8'</span>)
+        self.assertTrue(html.startswith(<span class="hljs-string">'&lt;html&gt;'</span>))
+        self.assertIn(<span class="hljs-string">'&lt;title&gt;To-Do&lt;/title&gt;'</span>, html)
+        self.assertTrue(html.endswith(<span class="hljs-string">'&lt;/html&gt;'</span>))
+</div></code></pre>
+<p>Alors on vient de rajouter un test au titre explicite, laissez moi vous expliquer les étapes:</p>
+<blockquote>
+<ul>
+<li>On instancie une requête depuis la classe <a href="https://docs.djangoproject.com/fr/3.1/ref/request-response/#django.http.HttpRequest">HttpRequest</a></li>
+<li>Cette requête est transmise à la vue home_page qui retourne une réponse.</li>
+<li>Cette réponse au contenu binaire est décodé en 'utf8'</li>
+<li>On affirme que le contenu commence par une balise html</li>
+<li>On affirme que 'To-Do' est dans le contenu de la réponse</li>
+<li>On affirme que le contenu termine par une balise html</li>
+</ul>
+</blockquote>
+<p>Allez c'est parti on applique le TDD: red =&gt; green with minimal code =&gt; refactor.</p>
+<p><strong>On lance les TU:</strong></p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+[ ... ]
+TypeError: home_page() takes 0 positional arguments but 1 was given
+</div></code></pre>
+<p>Ok modifions notre vue home_page pour quelle puisse prendre une requete en paramètre.</p>
+<p><strong>On ajuste :</strong></p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render
+    
+<span class="hljs-comment"># Create your views here.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">home_page</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+</div></code></pre>
+<p><strong>On lance les TU :</strong></p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+[ ... ]
+html = response.content.decode(<span class="hljs-string">'utf8'</span>)
+AttributeError: <span class="hljs-string">'NoneType'</span> object has no attribute <span class="hljs-string">'content'</span>
+</div></code></pre>
+<p>Ok la réponse 'response' de notre vue est 'vide' et ne contient donc pas d'attribut 'content', elle doit en effet retourner un objet de classe <a href="https://docs.djangoproject.com/fr/3.1/ref/request-response/#django.http.HttpResponse">HttpResponse</a>.</p>
+<p><strong>On ajuste :</strong></p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render
+<span class="hljs-keyword">from</span> django.http <span class="hljs-keyword">import</span> HttpResponse
+
+<span class="hljs-comment"># Create your views here.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">home_page</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-keyword">return</span> HttpResponse()
+</div></code></pre>
+<p><strong>On lance les TU :</strong></p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+[ ... ]
+self.assertTrue(html.startswith(<span class="hljs-string">'&lt;html&gt;'</span>))
+AssertionError: False is not <span class="hljs-literal">true</span>
+</div></code></pre>
+<p>Ok, maintenant la réponse est bien une HttpResponse mais le contenu ne commence pas par html.</p>
+<p><strong><strong>On ajuste:</strong></strong></p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">home_page</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">'&lt;html&gt;'</span>)
+</div></code></pre>
+<p><strong>On lance les TU :</strong></p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>self.assertIn(<span class="hljs-string">'&lt;title&gt;To-Do&lt;/title&gt;'</span>, html)
+AssertionError: <span class="hljs-string">'&lt;title&gt;To-Do&lt;/title&gt;'</span> not found <span class="hljs-keyword">in</span> <span class="hljs-string">'&lt;html&gt;'</span>
+</div></code></pre>
+<p><strong>On ajuste :</strong></p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">home_page</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">'&lt;html&gt;&lt;title&gt;To-Do&lt;/title&gt;'</span>)
+</div></code></pre>
+<p><strong>On lance les TU :</strong></p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>self.assertTrue(html.endswith(<span class="hljs-string">'&lt;/html&gt;'</span>))
+AssertionError: False is not <span class="hljs-literal">true</span>
+</div></code></pre>
+<p><strong>On ajuste :</strong></p>
+<blockquote>
+<p>lists/views.py</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">home_page</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">'&lt;html&gt;&lt;title&gt;To-Do&lt;/title&gt;&lt;/html&gt;'</span>)
+</div></code></pre>
+<p><strong>On lance les TU :</strong></p>
+<blockquote>
+<p>lists/tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>$ ./manage.py <span class="hljs-built_in">test</span> lists/
+Creating <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+System check identified no issues (0 silenced).
+..
+----------------------------------------------------------------------
+Ran 2 tests <span class="hljs-keyword">in</span> 0.002s
+
+OK
+Destroying <span class="hljs-built_in">test</span> database <span class="hljs-keyword">for</span> <span class="hljs-built_in">alias</span> <span class="hljs-string">'default'</span>...
+</div></code></pre>
+<p>Ok c'est bon les TU passent !! <img class="emoji" alt="smiley" src="data:image/png;base64,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" />  🚀<br>
+Bon on aurait pu écrire le code plus vite mais c'était pour vous montrer le processus d'itération et la recherche de la plus petite implémentation de code à chaque étape. TDD !</p>
+<p>Bon maintenant que nos TU passent vérifions notre TF.<br>
+(N'oubliez pas de lancer votre server avec <code>./manage runserver</code>)</p>
+<p><strong>TF :</strong></p>
+<blockquote>
+<p>functional_tests.py</p>
+</blockquote>
+<pre class="hljs"><code><div>$ python functional_tests.py 
+F
+======================================================================
+FAIL: test_can_start_a_list_and_retrieve_it_later (__main__.NewVisitorTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File <span class="hljs-string">"functional_tests.py"</span>, line 20, <span class="hljs-keyword">in</span> test_can_start_a_list_and_retrieve_it_later
+    self.fail(<span class="hljs-string">'Finish the test!'</span>)
+AssertionError: Finish the <span class="hljs-built_in">test</span>!
+
+----------------------------------------------------------------------
+Ran 1 <span class="hljs-built_in">test</span> <span class="hljs-keyword">in</span> 4.425s
+
+FAILED (failures=1)
+</div></code></pre>
+<p>Quoi ! Le test fonctionnel ne passe pas ?! Ah si c'était la méthode fail() que nous avions mise pour faire échouer le test si celui ci n'était pas terminé ! Ouf notre travail à payé ! #HappyFace
+Nous avons implémenté une page web avec &quot;To-Do&quot; dans le titre, le tout en BDD et TDD avec tests fonctionnel automatique ! Félicitation !</p>
+<image src="./images/chap3-todo.png" alt="todo title" title="Title is 'To-Do'" style="border-radius:10px" border="2 solid" width="800">
+<p>Ca mérite bien un ptit commit, allez:</p>
+<pre class="hljs"><code><div>$ git commit -am <span class="hljs-string">"home_page view returns minimal HTML"</span>
+</div></code></pre>
+<p>Un résumé de notre avancée:</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline 
+fb66add (HEAD -&gt; master, origin/master) home_page view returns minimal HTML
+0dd8db6 First UT, about url root path mapped to empty home_page view
+dacc94a Add new app lists, with a failing UT
+e38e5b9 FT with unittest
+de3bc47 First commit: First FT and basic Django config
+</div></code></pre>
+<p>Maintenant on sait:</p>
+<blockquote>
+<ul>
+<li><input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0">Démarrer une application Django</label></li>
+<li><input type="checkbox" id="checkbox1" checked="true"><label for="checkbox1">Utiliser la commande ./manage.py test</label></li>
+<li><input type="checkbox" id="checkbox2" checked="true"><label for="checkbox2">La différence entre TF et TU.</label></li>
+<li><input type="checkbox" id="checkbox3" checked="true"><label for="checkbox3">La résolution de chemin d'url vers les vues associé grace à Urls.py</label></li>
+<li><input type="checkbox" id="checkbox4" checked="true"><label for="checkbox4">Une vue et les objets request et response.</label></li>
+<li><input type="checkbox" id="checkbox5" checked="true"><label for="checkbox5">Retourner un HTMLbasique.</label></li>
+</ul>
+</blockquote>
+<p>Allez p'tite pause ☕ , et on se retrouve au chapitre <a href="chap4.md">suivant</a> .</p>
+
+</body>
+</html>

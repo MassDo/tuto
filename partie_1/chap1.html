@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chap1.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="chapitre-1---django-et-test-fonctionnel">chapitre 1 - Django et test fonctionnel.</h1>
+<p>Le but de ce tuto est de découvrir le TDD (et un peu de BDD aussi). Pour cela nous allons utiliser une application web toute simple; une todo liste! Et oui !</p>
+<h2 id="bdd-stories-sc%C3%A9narios-et-tests-fonctionnels">BDD, stories, scénarios et tests fonctionnels !</h2>
+<p>Pour simplifier, le BDD (Behavior Driven development) est basé sur des stories. Ce sont de petites phrases descriptives, où l'on se demande du point de vu de l'utilisateur  <strong>qui</strong> veut <strong>quoi</strong> et <strong>pouquoi</strong>. On peut les formaliser ainsi:</p>
+<blockquote>
+<p>En tant que <font color="DC143C">[type d'utilisateur]</font>, je veux <font color="483D8B">[une action]</font> afin que <font color="008000">[un bénéfice, une valeur]</font></p>
+</blockquote>
+<p>Et elles doivent répondre au sigle &quot;INVEST&quot;, dans la belle langue de shakespeare:</p>
+<blockquote>
+<ul>
+<li>Independent</li>
+<li>Negotiable</li>
+<li>Valuable</li>
+<li>Estimable</li>
+<li>Small</li>
+<li>Testable</li>
+</ul>
+</blockquote>
+<p>(Un exemple arrive un peu de patience)</p>
+<p>Ces stories pourront etre détaillées en scénarios, ou l'on précisera un <strong>acteur</strong> des <strong>actions</strong> et des <strong>conséquences</strong> avec les fameux mots clés <strong>GIVEN</strong>, <strong>WHEN</strong>, <strong>THEN</strong> ... (vous en avez forcément entendu parler)</p>
+<p>Nous pouvons voir les stories comme des désirs d'utilisation et les scénarios comme les descriptions de leur réalisation.</p>
+<p>Et les tests fonctionnels dans tout ca ?</p>
+<p>j'allais le dire ! Les tests fonctionnels sont la pour valider les scenarios. Voila c'est tout.</p>
+<p>Oula, c'est assez abstrait tout ça, peut etre qu'un exemple serait utile...</p>
+<p>Ca tombe bien, j'ai une mémoire de poisson rouge et je veux faire une todo-list, accessible par navigateur web, pour me souvenir de ce que je dois faire !</p>
+<p>Exemple de user storie pour notre todo liste:</p>
+<blockquote>
+<p><strong>En tant</strong> <font color="DC143C">qu'utilisateur d'un navigateur web,</font> <strong>Je veux</strong> <font color="483D8B">pouvoir ajouter des notes, </font> <strong>Afin que</strong>  <font color="008000">je puisse les retrouver plus tard.</font></p>
+</blockquote>
+<p>Essayons maintenant de détailler la storie avec un scénario:</p>
+<p>Scénario &quot;Robert découvre le site&quot;:</p>
+<blockquote>
+<ul>
+<li><font color="DC143C"><strong>Etant donné</strong></font> Robert un visiteur qui a entendu parler de notre site todo-list</li>
+<li><font color="483D8B"><strong>Quand</strong></font> il saisit l'url de notre site via son navigateur</li>
+<li><font color="008000"><strong>Alors</strong></font> il peut lire &quot;To-Do&quot; dans l'onglet de la page.
+<ul>
+<li><font color="008000"><strong>Et</strong></font> on lui propose de saisir une note de texte.</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>Scénario &quot;Robert ajoute une note&quot;:</p>
+<blockquote>
+<ul>
+<li><font color="DC143C"><strong>Etant donné</strong></font> Robert (toujours lui !) un visiteur qui est sur notre page d'accueil.</li>
+<li><font color="483D8B"><strong>Quand</strong></font> il ajoute du texte dans la zone de texte
+<ul>
+<li><font color="483D8B"><strong>Et</strong></font> qu'il appuie sur entrée</li>
+</ul>
+</li>
+<li><font color="008000"><strong>Alors</strong></font> sa note est ajoutée dans la page
+<ul>
+<li><font color="008000"><strong>Et</strong></font> il peut à nouveau ajouter une note dans une zone de texte.</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>Scénario &quot;Robert veut retrouver ses notes&quot;:</p>
+<blockquote>
+<ul>
+<li><font color="DC143C"><strong>Etant donné</strong></font> Robert, notre visiteur qui est de retour sur notre page d'accueil, après une semaine de vacance dans le juras sous la pluie.</li>
+<li><font color="483D8B"><strong>Quand</strong></font> il ajoute 3 notes via notre page d'accueil</li>
+<li><font color="008000"><strong>Alors</strong></font> ses notes sont ajoutées
+<ul>
+<li><font color="008000"><strong>Et</strong></font> il obtient une url unique grace au numéro d'identification de sa liste</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>Chaque scénario fera l'objet d'un test de validation automatique. Nous utiliserons pour cela Selenium.</p>
+<p>Mais, nous nous allons trop vite là ! Patience...</p>
+<p>Et le <strong>TDD</strong> (Test Driven Development) dans tout ça ?!</p>
+<p>Et bien le TDD est similaire au BDD mais du point de vue du développeur.</p>
+<p>Allez comme disait Napoléon &quot;Un bon croquis vaut mieux qu'un long discours.&quot; Je me suis risqué à essayer de résumer la situation !:</p>
+<image src="./images/croquis-bdd-tdd.png" alt="croquis-bdd-tdd" title="Croquis; BDD et TDD" style="border-radius:10px" border="2 solid" width="800">
+<p>Maintenant que nous savons créer notre environnement virtuel,  que nous avons nos dépendances et des bases pour approcher les notions de tests, revenons à la création de notre projet Django !</p>
+<h2 id="un-test-en-premier">Un test en premier !</h2>
+<p>Vous étiez tenté de commencer directement la création du projet django, mais ca serait déroger au mantra &quot;Un test en premier !&quot;</p>
+<p>Nous allons donc créer dans notre dossier racine ./todo-tdd un fichier functional_tests.py dans lequel nous allons ajouter:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+
+browser = webdriver.Firefox()
+browser.get(<span class="hljs-string">'http://localhost:8000'</span>)
+
+<span class="hljs-keyword">assert</span> <span class="hljs-string">'Django'</span> <span class="hljs-keyword">in</span> browser.title
+</div></code></pre>
+<p>On lance le test qui devrait échouer</p>
+<pre class="hljs"><code><div>$ python functional_tests.py 
+Traceback (most recent call last):
+  File <span class="hljs-string">"functional_tests.py"</span>, line 4, <span class="hljs-keyword">in</span> &lt;module&gt;
+    browser.get(<span class="hljs-string">'http://localhost:8000'</span>)
+  File <span class="hljs-string">"/home/tuto/.local/share/virtualenvs/todo-tdd-rzjrtEdZ/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py"</span>, line 333, <span class="hljs-keyword">in</span> get
+    self.execute(Command.GET, {<span class="hljs-string">'url'</span>: url})
+  File <span class="hljs-string">"/home/tuto/.local/share/virtualenvs/todo-tdd-rzjrtEdZ/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py"</span>, line 321, <span class="hljs-keyword">in</span> execute
+    self.error_handler.check_response(response)
+  File <span class="hljs-string">"/home/tuto/.local/share/virtualenvs/todo-tdd-rzjrtEdZ/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py"</span>, line 242, <span class="hljs-keyword">in</span> check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: Reached error page: about:neterror?e=connectionFailure&amp;u=http%3A//localhost%3A8000/&amp; [...]
+</div></code></pre>
+<p>Ok, on vient de voir une fenêtre firefox s'ouvrir toute seule, et qui essaye de se connecter sans succes au localhost.
+Dans la console on voit une erreur. Bon c'est pas très lisible mais on comprend que ca ne fonctionne pas !<br>
+On arrive tout de même à lire connectionFailure à la fin ...</p>
+<p>Maintenant qu'on a un test en échec, on peut écrire le code minimal pour que celui-ci passe.<br>
+Dans notre cas essayons:</p>
+<pre class="hljs"><code><div>django-admin.py startproject superlists .
+</div></code></pre>
+<p>Cet outil de django permet de creer un projet &quot;superlists&quot; dans notre répertoire courant grace au point à la fin. Ne l'oubliez pas sinon django créera un répertoire ./todo-tdd/superlists dans lequel il mettra le projet superlists, un répertoire en trop pour nous...</p>
+<p>L'arborescence de votre projet doit donc ressembler à cela:</p>
+<blockquote>
+<p>./todo-tdd</p>
+</blockquote>
+<pre class="hljs"><code><div>.
+├── functional_tests.py
+├── geckodriver.log
+├── manage.py
+├── Pipfile
+├── Pipfile.lock
+└── superlists
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+</div></code></pre>
+<p>On remarque <code>manage.py</code> c'est la boîte à outils de django ! Elle nous permet de lancer un server de dev avec la commande</p>
+<pre class="hljs"><code><div>$ ./manage.py runserver
+Watching <span class="hljs-keyword">for</span> file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 17 unapplied migration(s). Your project may not work properly until you apply the migrations <span class="hljs-keyword">for</span> app(s): admin, auth, contenttypes, sessions.
+Run <span class="hljs-string">'python manage.py migrate'</span> to apply them.
+
+October 15, 2020 - 10:33:38
+Django version 2.2, using settings <span class="hljs-string">'superlists.settings'</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+</div></code></pre>
+<p>On peut pour l'instant ignorer le message sur les migrations nous en parlerons plus tard quand nous aborderons la base de données.<br>
+Notre serveur est normalement en service en local ! Lançonsnotre test fonctionnel depuis un nouveau shell, pour voir s'il passe ! (si vous fermez la console où le serveur est lancé alors vous allez l'arreter)</p>
+<blockquote>
+<p>./todo-tdd</p>
+</blockquote>
+<pre class="hljs"><code><div>$ python functional_tests.py
+</div></code></pre>
+<p>Une fenetre Firefox s'ouvre et se connecte a notre site, vous pouvez voir Django dans le tritre de l'onglet et une petite fusée ! La console n'affiche plus d'erreur, ouf, toute mes félicitations c'est notre premier test qui passe !!</p>
+<image src="images/django-launch-chap1.png" alt="Django-launched-local-server" title="Django launched on local dev server" style="border-radius:10px" border="2 solid" width="800">
+<blockquote>
+<p>Si vous avez un message d'erreur, c'est que vous avez sans doute, oublié d'activer votre environnement virtuel avec <code>$ pipenv shell</code>.</p>
+</blockquote>
+<p>Il reste une chose à faire avant de terminer ce chapitre, et que notre ordinateur tombe en panne !
+Envoyer notre travail sur Github !</p>
+<p>On initialise notre git repository:</p>
+<blockquote>
+<p>./todo-tdd</p>
+</blockquote>
+<pre class="hljs"><code><div>$ git init .
+</div></code></pre>
+<pre class="hljs"><code><div>$ ls
+db.sqlite3           geckodriver.log  Pipfile       superlists
+functional_tests.py  manage.py        Pipfile.lock
+</div></code></pre>
+<p>On voit plusieurs fichers que l'ont ne veut pas commiter; db.sqlite3 est le ficher de la base de donnée, et geckodriver.log celui des logs de notre browser de test.</p>
+<p>Pour les ignorer lors de nos commits, ajoutons les à un ficher .gitignore:</p>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">echo</span> geckodriver.log &gt;&gt; .gitignore
+$ <span class="hljs-built_in">echo</span> db.sqlite3 &gt;&gt; .gitignore
+</div></code></pre>
+<p>Le double chevron '&gt;&gt;' ajoute à <strong>la suite</strong> d'un ficher ( et le crée si il n'éxiste pas )</p>
+<pre class="hljs"><code><div>$ git status
+Sur la branche master
+
+Aucun commit
+
+Fichiers non suivis:
+  (utilisez <span class="hljs-string">"git add &lt;fichier&gt;..."</span> pour inclure dans ce qui sera validé)
+
+	.gitignore
+	Pipfile
+	Pipfile.lock
+	functional_tests.py
+	manage.py
+	superlists/
+
+aucune modification ajoutée à la validation mais des fichiers non suivis sont présents (utilisez <span class="hljs-string">"git add"</span> pour les suivre)
+</div></code></pre>
+<p>Voila les fichers geckodriver.log et db.sqlite3 ne sont plus présents, nous pouvont ajouter les fichers et les commiter:</p>
+<pre class="hljs"><code><div>$ git add .
+$ git commit -m <span class="hljs-string">"First commit: First FT and basic Django config"</span>
+</div></code></pre>
+<p>Ajouter votre répertoire distant:</p>
+<pre class="hljs"><code><div>$ git remote add origin &lt;url de votre repo github&gt;
+</div></code></pre>
+<p>Et l'envoyer:</p>
+<pre class="hljs"><code><div>$ git push origin master
+</div></code></pre>
+<p>C'est fini ! Vous pouvez mettre votre siege en position horizontale et vous congratuler le premier chapitre est terminé. Vous avez établie une mise en place basique d'un projet django grace a un test fonctionel et commité tout ca. Un petite pause et on continue avec le <a href="chap2.md">chapitre 2</a></p>
+
+</body>
+</html>
