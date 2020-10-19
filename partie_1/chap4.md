@@ -234,3 +234,187 @@ Top ! On a réussie a réfactorer en utilisant les templates ! (Si vous avez une
 > A faire:
 >- [x] Refactorer notre vue en utilisant les templates  
 
+Nous avons refactoré notre code, mais nos tests unitaires continuent de vérifier des constantes, en l'occurence de vérifier notre HTML en dur. 
+> A faire:
+>- [x] Refactorer notre vue en utilisant les templates 
+>-  [ ] Refactorer nos tests unitaires.
+
+Allez on refactor nos tests unitaires:  
+>lists/tests.py
+```python
+# from django.http import HttpRequest
+# from django.urls import resolve
+from django.test import TestCase
+# from lists.views import home_page
+
+class HomePageTest(TestCase):
+
+    # def test_root_url_resolve_to_home_page_view(self):
+    #     my_view = resolve('/')
+    #     self.assertEqual(my_view.func, home_page)
+
+    # def test_to_do_in_title_home_page(self):
+    def test_uses_home_template(self):
+        # request = HttpRequest()
+        # response = home_page(request)
+        response = self.client.get('/')
+
+        # html = response.content.decode('utf8')
+        # self.assertTrue(html.startswith('<html>'))
+        # self.assertIn('<title>To-Do</title>', html)
+        # self.assertTrue(html.endswith('</html>'))
+        self.assertTemplateUsed(response, 'home.html')
+```
+j'ai mis en commentaires les portions de test inutiles après réusinage du code.  
+En effet, on utilise maintenant le [client](https://docs.djangoproject.com/fr/3.1/topics/testing/tools/) de test "client" qui se comporte comme un navigateur simple. On comprend que si la reponse du client, pour une requête GET de l'url racine, possède bien le template 'home.html'.  
+Alors toutes les autres lignes sont vérifiées et elles deviennent superficielles, ont peut les supprimer ! (elles étaient la pour avancer doucement et comprendre le cheminement des objets [HttpRequest](https://docs.djangoproject.com/fr/3.1/ref/request-response/#django.http.HttpRequest) et [HttpResponse](https://docs.djangoproject.com/fr/3.1/ref/request-response/#django.http.HttpResponse))
+
+Notre classe de tests unitaires ressemble maintenant à cela:
+>lists/tests.py
+```python
+from django.test import TestCase
+
+class HomePageTest(TestCase):
+
+
+    def test_uses_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
+```
+
+Allez on vérifie que le test unitaire passe:
+```bash
+$ ./manage.py test lists/
+[...]
+OK
+```
+Et que notre test fonctionnel échoue toujours au meme endroit:
+```bash
+$ python functional_tests.py 
+[...]
+selenium.common.exceptions.NoSuchElementException: Message: Unable to locate element: h1
+```
+
+> A faire:
+>- [x] Refactorer notre vue en utilisant les templates 
+>- [x] Refactorer nos tests unitaires.  
+
+Ah ca fait du bien de cocher une case.
+On a refactoré notre code et nos test unitaires, en général c'est un bon moment pour un commit:  
+```bash
+$ git add .
+```
+```bash
+$ git commit -m "Refactor home_view to use template
+> add lists app to the project's setting INSTALLED_APPS
+> Refactor the unit tests"
+```
+
+Pour résumer, notre test unitaire teste le comportement de notre code au lieu de tester des constante. 
+
+La disposition et le contenu de nos pages doit lui être testé du coté vision utilisateur donc coté test fonctionnel. Celui ci échoue car il ne trouve pas de header h1 dans notre page avec la mention 'To-Do'. Changeons ça ! ( et ajoutons 'Your To-Do list' au lieu d'un simple titre 'To-Do' c'est mieux )  
+>lists/templates/home.html
+```html
+<html>
+    <head>
+        <title>To-Do</title>
+    </head>
+    <body>
+        <h1>Your To-Do list</h1>        
+    </body>
+</html>
+```
+__On lance le test fonctionnel__  
+```bash
+$ python functional_tests.py 
+[...]
+selenium.common.exceptions.NoSuchElementException: Message: Unable to locate element: [id="id_new_item"]
+```
+Ok, il ne trouve pas l'élément inputbox avec l'id 'id_new_item'...  
+__On ajuste:__  
+
+```html
+<html>
+    <head>
+        <title>To-Do</title>
+    </head>
+    <body>
+        <h1>Your To-Do list</h1> 
+        <input type="text" id="id_new_item">       
+    </body>
+</html>
+```  
+__On lance le test fonctionnel:__  
+
+```bash
+$ python functional_tests.py 
+[...]
+AssertionError: '' != 'Enter a to-do item'
+```
+Il ne trouve pas de placeholder avec la mention 'Enter a to-do item'.  
+__On ajuste:__  
+```html
+<body>
+    <h1>Your To-Do list</h1> 
+    <input type="text" id="id_new_item" placeholder="Enter a to-do item">       
+</body>
+```
+__On relance le test fonctionnel:__  
+```bash
+$ python functional_tests.py 
+[...]
+selenium.common.exceptions.NoSuchElementException: Message: Unable to locate element: [id="id_list_table"]
+```
+Il ne trouve pas de tableau avec l'id "id_list_table".  
+__On ajuste:__ 
+```html
+<body>
+  <h1>Your To-Do list</h1> 
+  <input type="text" id="id_new_item" placeholder="Enter a to-do item">
+  <table id="id_list_table"></table>       
+</body>
+```
+__On relance le test fonctionnel:__
+```bash
+$ python functional_tests.py 
+[...]
+  File "functional_tests.py", line 47, in test_can_start_a_list_and_retrieve_it_later
+    any(r.text == '1: Acheter du pain' for r in rows)
+AssertionError: False is not true
+```
+Il ne trouve pas de ligne dans le tableau qui contienne "1: Acheter du pain". Après que l'utilisateur (via selenium) ai envoyé "Acheter du pain" dans le champ de saisie de texte.
+Vous sentez bien que la on est plus dans de l'implémentation de l'HTML de notre template. Il va falloir traiter le formulaire soumis par l'utilisateur.... Ca tombe bien c'est le but du chapitre suivant !!! 
+
+Allez un commit, une pause, et on passe à la suite ! :)
+
+```bash
+$ git diff
+diff --git a/lists/templates/home.html b/lists/templates/home.html
+index eff725d..74674a6 100644
+--- a/lists/templates/home.html
++++ b/lists/templates/home.html
+@@ -1,3 +1,10 @@
+ <html>
+-    <title>To-Do</title>
++    <head>
++        <title>To-Do</title>
++    </head>
++    <body>
++        <h1>Your To-Do list</h1>
++        <input type="text" id="id_new_item" placeholder="Enter a to-do item">
++        <table id="id_list_table"></table>
++    </body>
+ </html>
+\ No newline at end of file
+```
+```bash
+$ git commit -am "Font page HTML
+> add header
+> inputbox
+> table"
+```
+> A faire:
+>- [ ] Traiter la soumission du formulaire utilisateur
+
+Chapitre [suivant](chap5.md)
+
